@@ -1,0 +1,51 @@
+<!doctype html>
+  <html lang="en">
+    <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+      <link rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css"
+      integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1"
+      crossorigin="anonymous">
+      <title>Правда или действие</title>
+    </head>
+    <body>
+      <div>
+          <form class="login_form" method="post">
+              {% if page == 0 %}
+               <label for="exampleInputEmail1" class="form-label">Введите количество игроков</label>
+               <input type="text" class="form-control" name="kolvo" placeholder="От 1 до 100 игроков" aria-label="Recipient's username" aria-describedby="button-addon2">
+               <button type="submit" class="btn btn-primary">Подтвердить</button>
+               <input type="hidden" name="check_page" value="page0">
+                {% if corr == 1 %}
+                    <p class="text-danger">Введенные данные некорректны</p>
+                {% endif %}
+              {% endif %}
+              {% if page == 1 %}
+                <p class="text-primary">Введите имена игроков</p>
+                {% for i in range(quantity) %}
+                {% set l = i | string() %}
+                {% set poryadok = "name" + l %}
+                    <input type="text" class="form-control" name={{ poryadok }} placeholder="Введите имя" aria-label="Recipient's username" aria-describedby="button-addon2">
+                {% endfor %}
+                <button type="submit" class="btn btn-primary">Подтвердить</button>
+                <input type="hidden" name="check_page" value="page1">
+                {% set flag_1 = 1 %}
+              {% endif %}
+              {% if page == 2 %}
+                <button class="btn btn-primary" type="submit" name="btn" value="Pravda">Правда</button>
+                <button type="submit" class="btn btn-primary" name="btn" value="Deistvie">Действие</button>
+                <p class="text-primary">{{ name_now }}, твой ход!</p>
+              {% endif %}
+              {% if page == 3 %}
+              <p class="text-primary">{{ name_now }}, {{ pravda_now }}!</p>
+              <button type="submit" class="btn btn-primary" name="btnback1" value="back1">Следующий игрок</button>
+              {% endif %}
+              {% if page == 4 %}
+              <p class="text-primary">{{ name_now }}, {{ deistvie_now }}!</p>
+              <button type="submit" class="btn btn-primary" name="btnback2" value="back2">Следующий игрок</button>
+              {% endif %}
+          </form>
+      </div>
+    </body>
+  </html>
